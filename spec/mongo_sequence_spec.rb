@@ -1,8 +1,16 @@
 require 'bundler/setup'
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'mongo_sequence'
+require 'mongo_mapper'
+require 'mongoid'
 
-describe MongoSequence do  
+describe MongoSequence do
+  before :each do
+    MongoMapper.database   = nil
+    # can't get rid of Mongoid's db :/
+    MongoSequence.database = nil
+  end
+
   context "no ODM" do
     before :each do
       @db = Mongo::Connection.new.db('mongo_sequence_test')
@@ -71,6 +79,37 @@ describe MongoSequence do
     it "should actually use the database" do
       MongoSequence.collection.save(:_id => "test", :current => 200)
       MongoSequence[:test].current.should == 200
+    end
+  end
+
+  context "MongoMapper" do
+    before :each do
+      MongoMapper.database = "mongo_sequence_test_mm"
+    end
+
+    it "uses MongoMapper's database by default" do
+      MongoSequence.database.name.should == "mongo_sequence_test_mm"
+    end
+
+    it "allows overriding the database" do
+      MongoSequence.database = Mongo::Connection.new.db('mongo_sequence_test')
+      MongoSequence.database.name.should == "mongo_sequence_test"
+    end
+  end
+
+  context "Mongoid" do
+    before :each do
+      # get around Mongoid complaining that my MongoDB is too old :P
+      Mongoid.config.from_hash('database' => "mongo_sequence_test_mongoid", 'logger' => false)
+    end
+
+    it "uses Mongoid's database by default" do
+      MongoSequence.database.name.should == "mongo_sequence_test_mongoid"
+    end
+
+    it "allows overriding the database" do
+      MongoSequence.database = Mongo::Connection.new.db('mongo_sequence_test')
+      MongoSequence.database.name.should == "mongo_sequence_test"
     end
   end
 end
