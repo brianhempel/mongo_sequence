@@ -1,7 +1,6 @@
 require "mongo"
 
 class MongoSequence
-  VERSION = "0.9.0"
 
   class << self
     attr_accessor :database

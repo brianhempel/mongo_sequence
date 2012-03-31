@@ -1,10 +1,8 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "mongo_sequence"
 
 Gem::Specification.new do |s|
   s.name        = "mongo_sequence"
-  s.version     = MongoSequence::VERSION
+  s.version     = '0.9.0'
   s.authors     = ["Brian Hempel"]
   s.email       = ["plasticchicken@gmail.com"]
   s.homepage    = "github.com/brianhempel/mongo_sequence"

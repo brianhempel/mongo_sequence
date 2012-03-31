@@ -1,4 +1,6 @@
 require 'bundler/setup'
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'mongo_sequence'
 
 describe MongoSequence do  
   context "no ODM" do
