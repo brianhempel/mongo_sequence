@@ -5,6 +5,10 @@ class MongoSequence
   class << self
     attr_writer :database
 
+    def reset
+      @sequences = nil
+    end
+
     def database
       return @database if @database
       return MongoMapper.database if defined?(MongoMapper) && MongoMapper.database

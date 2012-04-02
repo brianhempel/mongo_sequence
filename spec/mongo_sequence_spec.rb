@@ -15,6 +15,7 @@ describe MongoSequence do
     before :each do
       @db = Mongo::Connection.new.db('mongo_sequence_test')
       @db.collections.each(&:remove)
+      MongoSequence.reset
       MongoSequence.database = @db
     end
 
@@ -62,6 +63,15 @@ describe MongoSequence do
       MongoSequence[:test] = 100
       MongoSequence[:test].current.should == 100
       MongoSequence[:test].next.should == 101
+    end
+
+    it "accepts strings or symbols for the sequence name" do
+      MongoSequence[:test] = 100
+      MongoSequence['test'].current.should == 100
+      MongoSequence.sequences.keys.should == [:test]
+      MongoSequence['test'] = 200
+      MongoSequence[:test].current.should == 200
+      MongoSequence.sequences.keys.should == [:test]
     end
 
     it "uses the 'sequences' collection" do
