@@ -5,10 +5,6 @@ class MongoSequence
   class << self
     attr_writer :database
 
-    def reset
-      @sequences = nil
-    end
-
     def database
       return @database if @database
       return MongoMapper.database if defined?(MongoMapper) && MongoMapper.database
@@ -20,15 +16,11 @@ class MongoSequence
     end
 
     def [](name)
-      sequences[name.to_sym] ||= new(name)
+      new(name)
     end
 
     def []=(name, integer)
       self[name].current = integer
-    end
-
-    def sequences
-      @sequences ||= {}
     end
   end
 
