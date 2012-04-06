@@ -2,10 +2,10 @@
 
 Gem::Specification.new do |s|
   s.name        = "mongo_sequence"
-  s.version     = '0.9.0'
+  s.version     = '1.0.0'
   s.authors     = ["Brian Hempel"]
   s.email       = ["plasticchicken@gmail.com"]
-  s.homepage    = "github.com/brianhempel/mongo_sequence"
+  s.homepage    = "https://github.com/brianhempel/mongo_sequence"
   s.summary     = %q{Light-weight sequences for MongoDB, useful for auto-incrementing or counting.  Works with any ODM.}
   s.description = s.summary
 
