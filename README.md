@@ -2,7 +2,7 @@
 
 MongoSequence provides light-weight, robust sequences in MongoDB. They are useful for auto-incrementing or counting.  Compatible with any Mongo ODM.
 
-MongoSequence creates named sequences in a "sequences" collection in your database and atomically increments and returns the counter on them using Mongo's findAndModify command. You won't have collisions—two processes trying to increment at the same time will alway get different numbers.
+MongoSequence creates named sequences in a "sequences" collection in your database and atomically increments and returns the counter on them using Mongo's [findAndModify](http://www.mongodb.org/display/DOCS/findAndModify+Command) command. You won't have collisions—two processes trying to increment at the same time will alway get different numbers.
 
 ## Usage
 
@@ -81,6 +81,10 @@ Need something added? Please [open an issue](https://github.com/brianhempel/mong
     # hack away
     git push
     # then make a pull request
+
+## Inspiration
+
+A first implimentation was written over a year ago based on Chris Shiflett's [Auto Increment with MongoDB](http://shiflett.org/blog/2010/jul/auto-increment-with-mongodb) blog post.
 
 ## License
 
