@@ -1,20 +1,20 @@
 # MongoSequence
 
-MongoSequence provides Light-weight, robust sequences in MongoDB. Useful for auto-incrementing or counting.  Works with any ODM.
+MongoSequence provides light-weight, robust sequences in MongoDB. They are useful for auto-incrementing or counting.  Compatible with any Mongo ODM.
 
 MongoSequence creates named sequences in a "sequences" collection in your database and atomically increments and returns the counter on them using Mongo's findAndModify command. You won't have collisions--two processes trying to increment at the same time will alway get different numbers.
 
 ## Usage
 
-Install without Bundler:
-
-    gem install mongo_sequence --no-ri --no-rdoc
-
-Install with Bundler:
+Install with [Bundler](http://gembundler.com/):
 
 ``` ruby
 gem "mongo_sequence"
 ```
+
+Install without Bundler:
+
+    gem install mongo_sequence --no-ri --no-rdoc
 
 If you're _not_ using MongoMapper or Mongoid, you'll have to tell MongoSequence what database to use:
 
@@ -40,6 +40,17 @@ MongoSequence[:global].next    # => 101
 # sequences with different names are independent
 MongoSequence[:bluejay].next   # => 1
 MongoSequence[:bluejay].next   # => 2
+```
+
+Here's how the sequences look in Mongo:
+
+``` ruby
+MongoSequence.collection.find_one(:_id => 'bluejay')
+# =>
+# {
+#   "_id"     => "bluejay",
+#   "current" => 2
+# }
 ```
 
 ## Why?
