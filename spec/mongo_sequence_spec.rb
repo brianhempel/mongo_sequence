@@ -102,21 +102,37 @@ describe MongoSequence do
       MongoSequence.database = Mongo::Connection.new.db('mongo_sequence_test')
       MongoSequence.database.name.should == "mongo_sequence_test"
     end
+
+    it "starts at 1 for a new sequence and increments" do
+      MongoSequence[:test].current = 0
+      MongoSequence[:test].next.should == 1
+      MongoSequence[:test].next.should == 2
+    end
+
   end
 
   context "Mongoid" do
     before :each do
-      # get around Mongoid complaining that my MongoDB is too old :P
       Mongoid.config.from_hash('database' => "mongo_sequence_test_mongoid", 'logger' => false)
+      # Mongoid.connect_to("mongo_sequence_test_mongoid") ## Mongoid 3
     end
 
     it "uses Mongoid's database by default" do
       MongoSequence.database.name.should == "mongo_sequence_test_mongoid"
+      # Mongoid.sessions['default']['database'].should == "mongo_sequence_test_mongoid" # Mongoid 3
     end
 
     it "allows overriding the database" do
+      ## TODO: Mongoid 3 uses Moped.  Need to refactor a bunch.
       MongoSequence.database = Mongo::Connection.new.db('mongo_sequence_test')
       MongoSequence.database.name.should == "mongo_sequence_test"
     end
+
+    it "starts at 1 for a new sequence and increments" do
+      MongoSequence[:test].current = 0
+      MongoSequence[:test].next.should == 1
+      MongoSequence[:test].next.should == 2
+    end
+
   end
 end
