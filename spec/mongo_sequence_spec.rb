@@ -14,7 +14,7 @@ describe MongoSequence do
   context "no ODM" do
     before :each do
       @db = Mongo::Connection.new.db('mongo_sequence_test')
-      @db.collections.each(&:remove)
+      @db.collections.reject{|x| x.name =~ /\Asystem\./}.each(&:remove)
       MongoSequence.database = @db
     end
 

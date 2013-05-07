@@ -67,6 +67,6 @@ class MongoSequence
   end
 
   def init_in_database
-    collection.save({:_id => name, :current => 0}, :safe => true)
+    collection.save({:_id => name, :current => 0}, :w => 1)
   end
 end
