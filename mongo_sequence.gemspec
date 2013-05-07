@@ -18,5 +18,5 @@ Gem::Specification.new do |s|
   
   s.add_development_dependency "rspec"
   s.add_development_dependency "mongo_mapper"
-  s.add_development_dependency "mongoid"
+  s.add_development_dependency "mongoid", "~> 2.0"
 end
