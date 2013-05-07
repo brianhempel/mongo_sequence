@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "mongo_sequence"
-  s.version     = '1.0.0'
+  s.version     = '1.0.1'
   s.authors     = ["Brian Hempel"]
   s.email       = ["plasticchicken@gmail.com"]
   s.homepage    = "https://github.com/brianhempel/mongo_sequence"
